@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {Splide, SplideSlide } from '@splidejs/react-splide';
+import {Link, useParams} from 'react-router-dom';
 import '@splidejs/react-splide/css';
 
 function Popular() {
@@ -24,6 +25,8 @@ function Popular() {
       localStorage.setItem('popular',JSON.stringify(data.recipes)); //alleen mogelijk om een string in localstorage te plaatsen.
 
       setPopular(data.recipes);
+
+      console.log(data);
     }
     
   }
@@ -42,11 +45,14 @@ function Popular() {
         }}>
         {popular.map((recipe) => {
           return(
+            
             <SplideSlide key={recipe.id}>
-              <Card>
-                <p>{recipe.title}</p>
-                <img src={recipe.image} alt={recipe.title} />
-              </Card>
+              <Link className="recipe-item" to={`/recipe/${recipe.title}`}>
+                <Card>
+                  <p>{recipe.title}</p>
+                  <img src={recipe.image} alt={recipe.title} />
+                </Card>
+              </Link>
             </SplideSlide>
           );
         })};
